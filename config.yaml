@@ -1,0 +1,38 @@
+baseURL: ""
+languageCode: en-us
+title: Mujtaba's Portfolio
+theme: PaperMod
+
+menu:
+  main:
+  - identifier: blog
+    name: Blog
+    title: Blog
+    url: /blog/
+    weight: 10
+  - identifier: about
+    name: About
+    title: About
+    url: /about/
+    weight: 20
+  - identifier: projects
+    name: Projects
+    title: Projects
+    url: /projects/
+    weight: 30
+
+params:
+    profileMode:
+        enabled: true
+        title: "Welcome!"
+        subtitle: "I am Mujtaba, a programmer that loves exploring!"
+        imageUrl: "https://avatars.githubusercontent.com/u/69866083?v=4"
+        imageTitle: "my picture"
+        imageWidth: 120
+        imageHeight: 120
+
+    socialIcons:
+        - name: "github"
+          url: "https://github.com/igreat"
+        - name: "instagram"
+          url: "<link2>"
