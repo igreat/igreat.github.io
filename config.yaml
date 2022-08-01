@@ -24,15 +24,17 @@ menu:
 params:
     profileMode:
         enabled: true
-        title: "Welcome!"
-        subtitle: "I am Mujtaba, a programmer that loves exploring!"
-        imageUrl: "https://avatars.githubusercontent.com/u/69866083?v=4"
+        title: "Welcome to my eportfolio!"
+        subtitle: "I am Mujtaba, a programmer that loves exploring"
+        imageUrl: "https://i.ibb.co/WgPjjnN/me-thinking.jpg"
         imageTitle: "my picture"
-        imageWidth: 120
-        imageHeight: 120
+        imageWidth: 256
+        imageHeight: 256
 
     socialIcons:
         - name: "github"
           url: "https://github.com/igreat"
-        - name: "instagram"
-          url: "<link2>"
+        - name: "linkedin"
+          url: "https://www.linkedin.com/in/mujtaba-al-ajmi-b256b9242/"
+        - name: "email"
+          url: "mailto:mujtaba.alajmi13.20@takatufscholars.om"
