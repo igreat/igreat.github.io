@@ -26,7 +26,7 @@ params:
         enabled: true
         title: "Welcome to my eportfolio!"
         subtitle: "I am Mujtaba, a programmer that loves exploring"
-        imageUrl: "https://i.ibb.co/WgPjjnN/me-thinking.jpg"
+        imageUrl: "images/my-face.jpg"
         imageTitle: "my picture"
         imageWidth: 256
         imageHeight: 256
@@ -38,3 +38,8 @@ params:
           url: "https://www.linkedin.com/in/mujtaba-al-ajmi-b256b9242/"
         - name: "email"
           url: "mailto:mujtaba.alajmi13.20@takatufscholars.om"
+        
+markup:
+  goldmark:
+    renderer:
+      unsafe: true
