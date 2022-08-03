@@ -8,9 +8,21 @@ draft: true
 cover:
     image: "images/takatuf-memories.jpeg"
     alt: "image of me and the rest of the takatuf scholars during winter break"
-    caption: "image of me and the rest of the takatuf scholars during the winter workshop"
+    caption: "Image of me and the rest of the takatuf scholars during the winter workshop"
 ---
+THINGS TO MENTION:
+- Takatuf scholar (DONE)
+- Love and passion for cs and math (DONE)
+- Journey with AI
+- What I do in my free time
+    - Podcasts (lex fridman)
+    - Read papers
+- Perhaps mention my academic excellence in school?
+    - Maybe not because it's in my resume...
+    
+**I'm an explorer in computer science and mathematics**, often challening myself in those fields. I also try to bring the skills that I learn throughout my journey to good use, and I try to build practical projects!
 
-I am an explorer in computer science and mathematics, often challening myself in those fields. I also try to bring the skills that I learn throughout my journey to good use, and I try to build practical projects!
+**I'm an International Takatuf Scholar** of the year 2020, which means that I am on a 6 year journey of studying abroad, 4 of which will be at university.
 
-I am an International Takatuf Scholar of the year 2020.
+I'm currently finishing high school at **St Michaels University School** in Victoria BC and I'll be graduating in 2023.
+

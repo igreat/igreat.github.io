@@ -5,21 +5,26 @@ theme: PaperMod
 
 menu:
   main:
-  - identifier: blog
-    name: Blog
-    title: Blog
-    url: /blog/
-    weight: 10
   - identifier: about
     name: About
     title: About
     url: /about/
+    weight: 10
+  - identifier: resume
+    name: Resume
+    title: Resume
+    url: /resume/
     weight: 20
+  - identifier: blog
+    name: Blog
+    title: Blog
+    url: /blog/
+    weight: 30
   - identifier: projects
     name: Projects
     title: Projects
     url: /projects/
-    weight: 30
+    weight: 40
 
 params:
     profileMode:

@@ -14,10 +14,10 @@ By using a deep CNN trained on a large dataset, we can extract **content** featu
 
 <div align="center">
     <div>
-        <img style="display:inline" src="/images/projects/test-images/starry-night.jpg" alt="Starry Night" width="256"/>
-        <img style="display:inline" src="/images/projects/test-images/sultan-qaboos-grand-mosque.jpg" alt="Sultan Qaboos Grand Mosque" width=256/>
+        <img style="display:inline" src="/images/projects/neural-style-transfer/test-images/starry-night.jpg" alt="Starry Night" width="256"/>
+        <img style="display:inline" src="/images/projects/neural-style-transfer/test-images/sultan-qaboos-grand-mosque.jpg" alt="Sultan Qaboos Grand Mosque" width=256/>
     </div>
-    <img src="/images/projects/night-grand-mosque.png" alt="Starry Grand Mosque" width="512"/>
+    <img src="/images/projects/neural-style-transfer/night-grand-mosque.png" alt="Starry Grand Mosque" width="512"/>
 </div>
 
 ## Results
@@ -26,23 +26,23 @@ Here is a portrait of an apple put with different style images.
 
 <div align="center">
     <div>
-        <img style="display:inline" src="/images/projects/apples/apple.jpg" width="140px"/>
+        <img style="display:inline" src="/images/projects/neural-style-transfer/apples/apple.jpg" width="140px"/>
     </div>
     <span>
-        <img style="display:inline" src="/images/projects/test-images/starry-night.jpg" alt="Starry Night" height="150"/>
-        <img style="display:inline" src="/images/projects/apples/starry-apple.png" height="150px"/>
+        <img style="display:inline" src="/images/projects/neural-style-transfer/test-images/starry-night.jpg" alt="Starry Night" height="150"/>
+        <img style="display:inline" src="/images/projects/neural-style-transfer/apples/starry-apple.png" height="150px"/>
     </span>
     <span>
-        <img style="display:inline" src="/images/projects/test-images/candy.jpg" height="150"/>
-        <img style="display:inline" src="/images/projects/apples/candy-apple.png" height="150px"/>
+        <img style="display:inline" src="/images/projects/neural-style-transfer/test-images/candy.jpg" height="150"/>
+        <img style="display:inline" src="/images/projects/neural-style-transfer/apples/candy-apple.png" height="150px"/>
     </span>
     <span>
-        <img style="display:inline" src="/images/projects/test-images/picasso.jpg" height="150"/>
-        <img style="display:inline" src="/images/projects/apples/picasso-apple.png" height="150px"/>
+        <img style="display:inline" src="/images/projects/neural-style-transfer/test-images/picasso.jpg" height="150"/>
+        <img style="display:inline" src="/images/projects/neural-style-transfer/apples/picasso-apple.png" height="150px"/>
     </span>
     <span>
-        <img style="display:inline" src="/images/projects/test-images/the-scream.jpg" alt="Starry Night" height="150"/>
-        <img style="display:inline" src="/images/projects/apples/scream-apple.png" height="150px"/>
+        <img style="display:inline" src="/images/projects/neural-style-transfer/test-images/the-scream.jpg" alt="Starry Night" height="150"/>
+        <img style="display:inline" src="/images/projects/neural-style-transfer/apples/scream-apple.png" height="150px"/>
     </span>
 </div>
 
@@ -57,10 +57,10 @@ Ideally, I would recommend leaving the content weight at 1 and only changing the
 By using different weights on the style and content images, we can get different results as shown below where the ratios between the weights of the style image and the content image are 1e4, 1e5, 1e6, 1e7 respectively from left to right.
 
 <div align="center">
-    <img style="display:inline" src="/images/projects/weight-comparisons/compare1to1e4.png" width="200px"/>
-    <img style="display:inline" src="/images/projects/weight-comparisons/compare1to1e5.png" width="200px"/>
-    <img style="display:inline" src="/images/projects/weight-comparisons/compare1to1e6.png" width="200px"/>
-    <img style="display:inline" src="/images/projects/weight-comparisons/compare1to1e7.png" width="200px"/>
+    <img style="display:inline" src="/images/projects/neural-style-transfer/weight-comparisons/compare1to1e4.png" width="200px"/>
+    <img style="display:inline" src="/images/projects/neural-style-transfer/weight-comparisons/compare1to1e5.png" width="200px"/>
+    <img style="display:inline" src="/images/projects/neural-style-transfer/weight-comparisons/compare1to1e6.png" width="200px"/>
+    <img style="display:inline" src="/images/projects/neural-style-transfer/weight-comparisons/compare1to1e7.png" width="200px"/>
 </div>
 
 The effects of TV regularization for when starting from the content image (which is what I recommend) are fairly small from what I've seen, so I won't showcase the differences. A tv weight of 1e-6 to 1e-4 works just fine.
