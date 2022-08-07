@@ -1,6 +1,6 @@
-baseURL: "https://igreat.github.io/"
+baseURL: https://igreat.github.io/
 languageCode: en-us
-title: Mujtaba's Portfolio
+title: Mujtaba
 theme: PaperMod
 
 menu:
