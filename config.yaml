@@ -29,7 +29,7 @@ menu:
 params:
     profileMode:
         enabled: true
-        title: "Welcome to my eportfolio!"
+        title: "Welcome!"
         subtitle: "I am Mujtaba, a programmer that loves exploring"
         imageUrl: "images/my-face.jpg"
         imageTitle: "my picture"
