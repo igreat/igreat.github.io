@@ -17,4 +17,6 @@ cover:
 
 **I'm an artificial intelligence (AI) enthusiast**, spending a large portion of my free time exploring the new advancements in AI as well as strengthening my fundementals in the field.
 
+I have also started making [Youtube videos](https://www.youtube.com/channel/UC16BYekiN_0telZ2z_WgtDQ) essentially teaching what I recently learned in AI/computer science/mathematics. This channel envolopes my love to inspire others and share what I learned :D
+
 In my free time, you'll find me listening to a Lex Fridman's podcast, reading the latest papers in AI or on occasion watching anime!

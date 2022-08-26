@@ -31,7 +31,7 @@ params:
         enabled: true
         title: "Welcome!"
         subtitle: "I am Mujtaba, a programmer that loves exploring"
-        imageUrl: "images/my-face.jpg"
+        imageUrl: "images/my-face-informal.jpeg"
         imageTitle: "my picture"
         imageWidth: 256
         imageHeight: 256
@@ -39,6 +39,8 @@ params:
     socialIcons:
         - name: "github"
           url: "https://github.com/igreat"
+        - name: "youtube"
+          url: "https://www.youtube.com/channel/UC16BYekiN_0telZ2z_WgtDQ"
         - name: "linkedin"
           url: "https://www.linkedin.com/in/mujtaba-al-ajmi-b256b9242/"
         - name: "email"
