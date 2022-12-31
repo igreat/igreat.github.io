@@ -1,6 +1,6 @@
 # Videos I Made 😎
 
-<div style="border: 4px solid #444; background-color: #333; padding: 20px; border-radius: 20px; max-width: 512px">
+<div style="background-color: #333; padding: 20px; border-radius: 20px; max-width: 600px" align="center">
   <h2>What Are Neural Networks Even Doing?</h2>
   <p>
       <a href="https://www.youtube.com/watch?v=pdNYw6qwuNc">
@@ -11,7 +11,7 @@
 </div>
 <br>
 
-<div style="border: 4px solid #444; background-color: #333; padding: 20px; border-radius: 20px; max-width: 512px">
+<div style="background-color: #333; padding: 20px; border-radius: 20px; max-width: 600px" align="center">
   <h2>How Do Computers See Images? - Neural Networks</h2>
   <p>
       <a href="https://www.youtube.com/watch?v=-QQML5kf26Q">
@@ -22,7 +22,7 @@
 </div>
 <br>
 
-<div style="border: 4px solid #444; background-color: #333; padding: 20px; border-radius: 20px; max-width: 512px">
+<div style="background-color: #333; padding: 20px; border-radius: 20px; max-width: 600px" align="center">
   <h2>How I Went From 50wpm to 100wpm in 2 Months</h2>
   <p>
       <a href="https://www.youtube.com/watch?v=ACMZY-L2PJM">
