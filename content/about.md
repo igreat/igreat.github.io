@@ -13,10 +13,10 @@ cover:
 
 **I'm an International Takatuf Scholar** of the year 2020, which means that I am on a 6 year journey of studying abroad, 4 of which will be at university. Currently, I'm finishing high school at St Michaels University School in Victoria BC and I'll be graduating in 2023.
 
-**I'm an explorer in computer science and mathematics**, often challening myself in those fields. I also try to bring the skills that I learn throughout my journey to good use, and I try to build practical projects!
+**I'm an explorer in computer science and mathematics**, often challenging myself in those fields. I also try to bring the skills that I learn throughout my journey to good use, and I try to build practical projects!
 
-**I'm an artificial intelligence (AI) enthusiast**, spending a large portion of my free time exploring the new advancements in AI as well as strengthening my fundementals in the field.
+**I'm an artificial intelligence (AI) enthusiast**, spending a large portion of my free time exploring the new advancements in AI as well as strengthening my fundamentals in the field.
 
-I have also started making [Youtube videos](https://www.youtube.com/channel/UC16BYekiN_0telZ2z_WgtDQ) essentially teaching what I recently learned in AI/computer science/mathematics. This channel envolopes my love to inspire others and share what I learned :D
+I've also started making [**Youtube videos**](https://www.youtube.com/channel/UC16BYekiN_0telZ2z_WgtDQ), where I essentially teach what I recently learned in AI/computer science/mathematics. This channel envelopes my love to inspire others and share what I learned :D
 
 In my free time, you'll find me listening to a Lex Fridman's podcast, reading the latest papers in AI or on occasion watching anime!
