@@ -34,8 +34,8 @@ menu:
 params:
     profileMode:
         enabled: true
-        title: "Welcome!"
-        subtitle: "I am Mujtaba, a programmer that loves exploring"
+        title: "Welcome!👋"
+        subtitle: "I am Mujtaba, a programmer that loves exploring 🚀"
         imageUrl: "images/my-face-informal.jpeg"
         imageTitle: "my picture"
         imageWidth: 256

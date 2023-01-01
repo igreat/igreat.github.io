@@ -1,5 +1,5 @@
 ---
-title: "Hello there"
+title: "Hello there 👋"
 
 description: "Glad you came to learn more about me!"
 

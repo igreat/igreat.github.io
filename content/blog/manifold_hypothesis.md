@@ -9,9 +9,9 @@ Neural networks are long assumed to be a **black box**, and though that might st
 Knowing very surface-level linear algebra and neural network basics will make this post flow much easier. However, I try to not skip through any details. The video version of the blog post, which can be found [here](https://www.youtube.com/watch?v=pdNYw6qwuNc), assumes much less background.
 
 This blog will be separated into three parts:
- - Visualizing Neural Networks in 2D
- - Why Use More Neurons Per Layer?
- - Manifold Hypothesis
+ - [Visualizing Neural Networks in 2D](#visualizing-neural-networks-in-2D)
+ - [Why Use More Neurons Per Layer?](#why-use-more-neurons-per-layer)
+ - [Manifold Hypothesis](#manifold-hypothesis)
 
 ## Visualizing Neural Networks In 2D
 Let’s start with a simple example. Let’s say we have these two entangled spirals of different color, and our goal is to essentially separate them using a neural network. 
