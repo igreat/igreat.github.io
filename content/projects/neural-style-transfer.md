@@ -119,4 +119,18 @@ optional arguments:
                         specify the style layers, space separated
 ```
 
+## Monitoring stylization
 
+You can also monitor how your image is changing over many iterations, as well as the style, content and total variation losses.
+
+To do this, simply run the following in a different terminal:
+```
+tensorboard --logdir=runs --samples_per_plugin images={MAX IMAGES}
+```
+You'll be able to see what your image looks like after each 50 iterations.
+
+Here's how it will look like:
+
+<div align="center">
+    <img src="/images/projects/neural-style-transfer/tensorboard.gif"/>
+<div>
