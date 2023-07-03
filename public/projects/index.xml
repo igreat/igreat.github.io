@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom" xmlns:content="http://purl.org/rss/1.0/modules/content/">
+  <channel>
+    <title>Projects on Mujtaba</title>
+    <link>https://igreat.github.io/projects/</link>
+    <description>Recent content in Projects on Mujtaba</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>en-us</language>
+    <lastBuildDate>Sun, 01 Jan 2023 20:45:01 +0400</lastBuildDate><atom:link href="https://igreat.github.io/projects/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>Fast Style Transfer 🏎💨🖌️🎨🧠</title>
+      <link>https://igreat.github.io/projects/fast-style-transfer/</link>
+      <pubDate>Sun, 01 Jan 2023 20:45:01 +0400</pubDate>
+      
+      <guid>https://igreat.github.io/projects/fast-style-transfer/</guid>
+      <description>Background 📖📕 In this project, I will do a PyTorch implemention of the fast neural style transfer algorithm described in the paper Perceptual Losses for Real-Time Style Transfer and Super-Resolution by Justin Johnson, Alexandre Alahi, and Li Fei-Fei.
+This method essentially involves training a model to approximate the optimization based neural style transfer. The benefit is that it runs about 3 orders of magnitude faster!
+Because of its improved inference time, it&amp;rsquo;s feasible to run style transfer in real time as you&amp;rsquo;ll also.</description>
+    </item>
+    
+    <item>
+      <title>Neural Style Transfer 🖌️🎨🧠</title>
+      <link>https://igreat.github.io/projects/neural-style-transfer/</link>
+      <pubDate>Sun, 31 Jul 2022 23:39:17 -0700</pubDate>
+      
+      <guid>https://igreat.github.io/projects/neural-style-transfer/</guid>
+      <description>In this project I will do a PyTorch implementation of the paper A Neural Algorithm of Artistic Style by Leon A. Gatys, Alexander S. Ecker, and Matthias Bethge.
+The repository of this project can be found here.
+Background By using a deep CNN trained on a large dataset, we can extract content features and style features in order to produce the desired combination of the two in one image. Here is an example of the Sultan Qaboos Grand Mosque mixed with the style of the Starry Night by Vincent van Gogh.</description>
+    </item>
+    
+  </channel>
+</rss>

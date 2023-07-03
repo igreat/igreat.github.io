@@ -1,0 +1,387 @@
+<!DOCTYPE html>
+<html lang="en" dir="auto">
+
+<head><meta charset="utf-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+<meta name="robots" content="index, follow">
+<title>Neural Style Transfer 🖌️🎨🧠 | Mujtaba</title>
+<meta name="keywords" content="">
+<meta name="description" content="In this project I will do a PyTorch implementation of the paper A Neural Algorithm of Artistic Style by Leon A. Gatys, Alexander S. Ecker, and Matthias Bethge.
+The repository of this project can be found here.
+Background By using a deep CNN trained on a large dataset, we can extract content features and style features in order to produce the desired combination of the two in one image. Here is an example of the Sultan Qaboos Grand Mosque mixed with the style of the Starry Night by Vincent van Gogh.">
+<meta name="author" content="">
+<link rel="canonical" href="https://igreat.github.io/projects/neural-style-transfer/">
+<link crossorigin="anonymous" href="/assets/css/stylesheet.bc1149f4a72aa4858d3a9f71462f75e5884ffe8073ea9d6d5761d5663d651e20.css" integrity="sha256-vBFJ9KcqpIWNOp9xRi915YhP/oBz6p1tV2HVZj1lHiA=" rel="preload stylesheet" as="style">
+<script defer crossorigin="anonymous" src="/assets/js/highlight.f413e19d0714851f6474e7ee9632408e58ac146fbdbe62747134bea2fa3415e0.js" integrity="sha256-9BPhnQcUhR9kdOfuljJAjlisFG&#43;9vmJ0cTS&#43;ovo0FeA="
+    onload="hljs.initHighlightingOnLoad();"></script>
+<link rel="icon" href="https://igreat.github.io/favicon.ico">
+<link rel="icon" type="image/png" sizes="16x16" href="https://igreat.github.io/favicon-16x16.png">
+<link rel="icon" type="image/png" sizes="32x32" href="https://igreat.github.io/favicon-32x32.png">
+<link rel="apple-touch-icon" href="https://igreat.github.io/apple-touch-icon.png">
+<link rel="mask-icon" href="https://igreat.github.io/safari-pinned-tab.svg">
+<meta name="theme-color" content="#2e2e33">
+<meta name="msapplication-TileColor" content="#2e2e33">
+<noscript>
+    <style>
+        #theme-toggle,
+        .top-link {
+            display: none;
+        }
+
+    </style>
+    <style>
+        @media (prefers-color-scheme: dark) {
+            :root {
+                --theme: rgb(29, 30, 32);
+                --entry: rgb(46, 46, 51);
+                --primary: rgb(218, 218, 219);
+                --secondary: rgb(155, 156, 157);
+                --tertiary: rgb(65, 66, 68);
+                --content: rgb(196, 196, 197);
+                --hljs-bg: rgb(46, 46, 51);
+                --code-bg: rgb(55, 56, 62);
+                --border: rgb(51, 51, 51);
+            }
+
+            .list {
+                background: var(--theme);
+            }
+
+            .list:not(.dark)::-webkit-scrollbar-track {
+                background: 0 0;
+            }
+
+            .list:not(.dark)::-webkit-scrollbar-thumb {
+                border-color: var(--theme);
+            }
+        }
+
+    </style>
+</noscript><meta property="og:title" content="Neural Style Transfer 🖌️🎨🧠" />
+<meta property="og:description" content="In this project I will do a PyTorch implementation of the paper A Neural Algorithm of Artistic Style by Leon A. Gatys, Alexander S. Ecker, and Matthias Bethge.
+The repository of this project can be found here.
+Background By using a deep CNN trained on a large dataset, we can extract content features and style features in order to produce the desired combination of the two in one image. Here is an example of the Sultan Qaboos Grand Mosque mixed with the style of the Starry Night by Vincent van Gogh." />
+<meta property="og:type" content="article" />
+<meta property="og:url" content="https://igreat.github.io/projects/neural-style-transfer/" /><meta property="article:section" content="projects" />
+<meta property="article:published_time" content="2022-07-31T23:39:17-07:00" />
+<meta property="article:modified_time" content="2022-07-31T23:39:17-07:00" />
+
+<meta name="twitter:card" content="summary"/>
+<meta name="twitter:title" content="Neural Style Transfer 🖌️🎨🧠"/>
+<meta name="twitter:description" content="In this project I will do a PyTorch implementation of the paper A Neural Algorithm of Artistic Style by Leon A. Gatys, Alexander S. Ecker, and Matthias Bethge.
+The repository of this project can be found here.
+Background By using a deep CNN trained on a large dataset, we can extract content features and style features in order to produce the desired combination of the two in one image. Here is an example of the Sultan Qaboos Grand Mosque mixed with the style of the Starry Night by Vincent van Gogh."/>
+
+
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "BreadcrumbList",
+  "itemListElement": [
+    {
+      "@type": "ListItem",
+      "position":  1 ,
+      "name": "Projects",
+      "item": "https://igreat.github.io/projects/"
+    }, 
+    {
+      "@type": "ListItem",
+      "position":  2 ,
+      "name": "Neural Style Transfer 🖌️🎨🧠",
+      "item": "https://igreat.github.io/projects/neural-style-transfer/"
+    }
+  ]
+}
+</script>
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "BlogPosting",
+  "headline": "Neural Style Transfer 🖌️🎨🧠",
+  "name": "Neural Style Transfer 🖌️🎨🧠",
+  "description": "In this project I will do a PyTorch implementation of the paper A Neural Algorithm of Artistic Style by Leon A. Gatys, Alexander S. Ecker, and Matthias Bethge.\nThe repository of this project can be found here.\nBackground By using a deep CNN trained on a large dataset, we can extract content features and style features in order to produce the desired combination of the two in one image. Here is an example of the Sultan Qaboos Grand Mosque mixed with the style of the Starry Night by Vincent van Gogh.",
+  "keywords": [
+    
+  ],
+  "articleBody": "In this project I will do a PyTorch implementation of the paper A Neural Algorithm of Artistic Style by Leon A. Gatys, Alexander S. Ecker, and Matthias Bethge.\nThe repository of this project can be found here.\nBackground By using a deep CNN trained on a large dataset, we can extract content features and style features in order to produce the desired combination of the two in one image. Here is an example of the Sultan Qaboos Grand Mosque mixed with the style of the Starry Night by Vincent van Gogh.\nResults Here is a portrait of an apple put with different style images.\nControl and tradeoffs There are multiple ways we can manipulate the output given a style and content image, which include:\nStyle weight Content weight TV regularization to improve smoothness Ideally, I would recommend leaving the content weight at 1 and only changing the style weight, since what matters is their ratio.\nBy using different weights on the style and content images, we can get different results as shown below where the ratios between the weights of the style image and the content image are 1e4, 1e5, 1e6, 1e7 respectively from left to right.\nThe effects of TV regularization for when starting from the content image (which is what I recommend) are fairly small from what I’ve seen, so I won’t showcase the differences. A tv weight of 1e-6 to 1e-4 works just fine.\nInstallation You need to first install miniconda. Once you have miniconda installed, all you need to do is download the project file, then navigate the the project file in the terminal, then put the following command.\nconda env create Now every time you want to use this tool, just type\nconda activate artistic-net Now you are ready to use the tool as shown in the following section.\nUsage Here is an example the simplest way to use this program\npython artistic_neural_net.py --content-image --style-image The previous command will generate an image and place it in the same directory as the project file, with all the default hyperparamers.\nFor more customizability, here is a list of all the arguments that can be used.\nSoon I will manually provide a usage guide but for now, here is what the help message gives\noptional arguments: -h, --help show this help message and exit --content-image CONTENT_IMAGE path of the content image --style-image STYLE_IMAGE path of the style image --save-path SAVE_PATH name and path where generated image will be saved --image-size IMAGE_SIZE the size of the generated image --content-weight CONTENT_WEIGHT style loss weight --style-weight STYLE_WEIGHT style loss weight --smoothness SMOOTHNESS total variation loss weight to make image smoother --init {content,noise} initial image to be used --maintain-color include to maintain the original color of the content image --pooling {max,avg} the pooling used in the network --iter ITER number of optimization steps --disp-iter DISP_ITER number of optimization steps before error is displayed --content-layers CONTENT_LAYERS [CONTENT_LAYERS ...] specify the content layers, space separated --style-layers STYLE_LAYERS [STYLE_LAYERS ...] specify the style layers, space separated Monitoring stylization You can also monitor how your image is changing over many iterations, as well as the style, content and total variation losses.\nTo do this, simply run the following in a different terminal:\ntensorboard --logdir=runs --samples_per_plugin images={MAX IMAGES} You’ll be able to see what your image looks like after each 50 iterations.\nHere’s how it will look like:\n",
+  "wordCount" : "569",
+  "inLanguage": "en",
+  "datePublished": "2022-07-31T23:39:17-07:00",
+  "dateModified": "2022-07-31T23:39:17-07:00",
+  "mainEntityOfPage": {
+    "@type": "WebPage",
+    "@id": "https://igreat.github.io/projects/neural-style-transfer/"
+  },
+  "publisher": {
+    "@type": "Organization",
+    "name": "Mujtaba",
+    "logo": {
+      "@type": "ImageObject",
+      "url": "https://igreat.github.io/favicon.ico"
+    }
+  }
+}
+</script>
+</head>
+
+<body class="" id="top">
+<script>
+    if (localStorage.getItem("pref-theme") === "dark") {
+        document.body.classList.add('dark');
+    } else if (localStorage.getItem("pref-theme") === "light") {
+        document.body.classList.remove('dark')
+    } else if (window.matchMedia('(prefers-color-scheme: dark)').matches) {
+        document.body.classList.add('dark');
+    }
+
+</script>
+
+<header class="header">
+    <nav class="nav">
+        <div class="logo">
+            <a href="https://igreat.github.io/" accesskey="h" title="Mujtaba (Alt + H)">Mujtaba</a>
+            <div class="logo-switches">
+                <button id="theme-toggle" accesskey="t" title="(Alt + T)">
+                    <svg id="moon" xmlns="http://www.w3.org/2000/svg" width="24" height="18" viewBox="0 0 24 24"
+                        fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
+                        stroke-linejoin="round">
+                        <path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"></path>
+                    </svg>
+                    <svg id="sun" xmlns="http://www.w3.org/2000/svg" width="24" height="18" viewBox="0 0 24 24"
+                        fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
+                        stroke-linejoin="round">
+                        <circle cx="12" cy="12" r="5"></circle>
+                        <line x1="12" y1="1" x2="12" y2="3"></line>
+                        <line x1="12" y1="21" x2="12" y2="23"></line>
+                        <line x1="4.22" y1="4.22" x2="5.64" y2="5.64"></line>
+                        <line x1="18.36" y1="18.36" x2="19.78" y2="19.78"></line>
+                        <line x1="1" y1="12" x2="3" y2="12"></line>
+                        <line x1="21" y1="12" x2="23" y2="12"></line>
+                        <line x1="4.22" y1="19.78" x2="5.64" y2="18.36"></line>
+                        <line x1="18.36" y1="5.64" x2="19.78" y2="4.22"></line>
+                    </svg>
+                </button>
+            </div>
+        </div>
+        <ul id="menu">
+            <li>
+                <a href="https://igreat.github.io/about/" title="About">
+                    <span>About</span>
+                </a>
+            </li>
+            <li>
+                <a href="https://igreat.github.io/videos/" title="Videos">
+                    <span>Videos</span>
+                </a>
+            </li>
+            <li>
+                <a href="https://igreat.github.io/resume/" title="Resume">
+                    <span>Resume</span>
+                </a>
+            </li>
+            <li>
+                <a href="https://igreat.github.io/blog/" title="Blog">
+                    <span>Blog</span>
+                </a>
+            </li>
+            <li>
+                <a href="https://igreat.github.io/projects/" title="Projects">
+                    <span>Projects</span>
+                </a>
+            </li>
+        </ul>
+    </nav>
+</header>
+<main class="main">
+
+<article class="post-single">
+  <header class="post-header">
+    
+    <h1 class="post-title">
+      Neural Style Transfer 🖌️🎨🧠
+    </h1>
+    <div class="post-meta"><span title='2022-07-31 23:39:17 -0700 -0700'>July 31, 2022</span>
+
+</div>
+  </header> 
+  <div class="post-content"><p>In this project I will do a PyTorch implementation of the paper <a href="https://arxiv.org/abs/1508.06576">A Neural Algorithm of Artistic Style</a> by Leon A. Gatys, Alexander S. Ecker, and Matthias Bethge.</p>
+<p>The repository of this project can be found <a href="https://github.com/igreat/artistic-style-net">here</a>.</p>
+<h2 id="background">Background<a hidden class="anchor" aria-hidden="true" href="#background">#</a></h2>
+<p>By using a deep CNN trained on a large dataset, we can extract <strong>content</strong> features and <strong>style</strong> features in order to produce the desired combination of the two in one image. Here is an example of the Sultan Qaboos Grand Mosque mixed with the style of the Starry Night by Vincent van Gogh.</p>
+<div align="center">
+    <div>
+        <img style="display:inline" src="/images/projects/neural-style-transfer/test-images/starry-night.jpg" alt="Starry Night" width="256"/>
+        <img style="display:inline" src="/images/projects/neural-style-transfer/test-images/sultan-qaboos-grand-mosque.jpg" alt="Sultan Qaboos Grand Mosque" width=256/>
+    </div>
+    <img src="/images/projects/neural-style-transfer/night-grand-mosque.png" alt="Starry Grand Mosque" width="512"/>
+</div>
+<h2 id="results">Results<a hidden class="anchor" aria-hidden="true" href="#results">#</a></h2>
+<p>Here is a portrait of an apple put with different style images.</p>
+<div align="center">
+    <div>
+        <img style="display:inline" src="/images/projects/neural-style-transfer/apples/apple.jpg" width="140px"/>
+    </div>
+    <span>
+        <img style="display:inline" src="/images/projects/neural-style-transfer/test-images/starry-night.jpg" alt="Starry Night" height="150"/>
+        <img style="display:inline" src="/images/projects/neural-style-transfer/apples/starry-apple.png" height="150px"/>
+    </span>
+    <span>
+        <img style="display:inline" src="/images/projects/neural-style-transfer/test-images/candy.jpg" height="150"/>
+        <img style="display:inline" src="/images/projects/neural-style-transfer/apples/candy-apple.png" height="150px"/>
+    </span>
+    <span>
+        <img style="display:inline" src="/images/projects/neural-style-transfer/test-images/picasso.jpg" height="150"/>
+        <img style="display:inline" src="/images/projects/neural-style-transfer/apples/picasso-apple.png" height="150px"/>
+    </span>
+    <span>
+        <img style="display:inline" src="/images/projects/neural-style-transfer/test-images/the-scream.jpg" alt="Starry Night" height="150"/>
+        <img style="display:inline" src="/images/projects/neural-style-transfer/apples/scream-apple.png" height="150px"/>
+    </span>
+</div>
+<h2 id="control-and-tradeoffs">Control and tradeoffs<a hidden class="anchor" aria-hidden="true" href="#control-and-tradeoffs">#</a></h2>
+<p>There are multiple ways we can manipulate the output given a style and content image, which include:</p>
+<ul>
+<li>Style weight</li>
+<li>Content weight</li>
+<li>TV regularization to improve smoothness</li>
+</ul>
+<p>Ideally, I would recommend leaving the content weight at 1 and only changing the style weight, since what matters is their ratio.</p>
+<p>By using different weights on the style and content images, we can get different results as shown below where the ratios between the weights of the style image and the content image are 1e4, 1e5, 1e6, 1e7 respectively from left to right.</p>
+<div align="center">
+    <img style="display:inline" src="/images/projects/neural-style-transfer/weight-comparisons/compare1to1e4.png" width="200px"/>
+    <img style="display:inline" src="/images/projects/neural-style-transfer/weight-comparisons/compare1to1e5.png" width="200px"/>
+    <img style="display:inline" src="/images/projects/neural-style-transfer/weight-comparisons/compare1to1e6.png" width="200px"/>
+    <img style="display:inline" src="/images/projects/neural-style-transfer/weight-comparisons/compare1to1e7.png" width="200px"/>
+</div>
+<p>The effects of TV regularization for when starting from the content image (which is what I recommend) are fairly small from what I&rsquo;ve seen, so I won&rsquo;t showcase the differences. A tv weight of 1e-6 to 1e-4 works just fine.</p>
+<h2 id="installation">Installation<a hidden class="anchor" aria-hidden="true" href="#installation">#</a></h2>
+<p>You need to first install miniconda. Once you have miniconda installed, all you need to do is download the project file, then navigate the the project file in the terminal, then put the following command.</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-text" data-lang="text"><span style="display:flex;"><span>conda env create
+</span></span></code></pre></div><p>Now every time you want to use this tool, just type</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-text" data-lang="text"><span style="display:flex;"><span>conda activate artistic-net
+</span></span></code></pre></div><p>Now you are ready to use the tool as shown in the following section.</p>
+<h2 id="usage">Usage<a hidden class="anchor" aria-hidden="true" href="#usage">#</a></h2>
+<p>Here is an example the simplest way to use this program</p>
+<pre tabindex="0"><code>python artistic_neural_net.py --content-image &lt;PATH TO CONTENT IMAGE&gt; --style-image &lt;PATH TO STYLE IMAGE&gt;
+</code></pre><p>The previous command will generate an image and place it in the same directory as the project file, with all the default hyperparamers.</p>
+<p>For more customizability, here is a list of all the arguments that can be used.</p>
+<p>Soon I will manually provide a usage guide but for now, here is what the help message gives</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-text" data-lang="text"><span style="display:flex;"><span>optional arguments:
+</span></span><span style="display:flex;"><span>  -h, --help            show this help message and exit
+</span></span><span style="display:flex;"><span>  --content-image CONTENT_IMAGE
+</span></span><span style="display:flex;"><span>                        path of the content image
+</span></span><span style="display:flex;"><span>  --style-image STYLE_IMAGE
+</span></span><span style="display:flex;"><span>                        path of the style image
+</span></span><span style="display:flex;"><span>  --save-path SAVE_PATH
+</span></span><span style="display:flex;"><span>                        name and path where generated image will be saved
+</span></span><span style="display:flex;"><span>  --image-size IMAGE_SIZE
+</span></span><span style="display:flex;"><span>                        the size of the generated image
+</span></span><span style="display:flex;"><span>  --content-weight CONTENT_WEIGHT
+</span></span><span style="display:flex;"><span>                        style loss weight
+</span></span><span style="display:flex;"><span>  --style-weight STYLE_WEIGHT
+</span></span><span style="display:flex;"><span>                        style loss weight
+</span></span><span style="display:flex;"><span>  --smoothness SMOOTHNESS
+</span></span><span style="display:flex;"><span>                        total variation loss weight to make image smoother
+</span></span><span style="display:flex;"><span>  --init {content,noise}
+</span></span><span style="display:flex;"><span>                        initial image to be used
+</span></span><span style="display:flex;"><span>  --maintain-color      include to maintain the original color of the content image
+</span></span><span style="display:flex;"><span>  --pooling {max,avg}   the pooling used in the network
+</span></span><span style="display:flex;"><span>  --iter ITER           number of optimization steps
+</span></span><span style="display:flex;"><span>  --disp-iter DISP_ITER
+</span></span><span style="display:flex;"><span>                        number of optimization steps before error is displayed
+</span></span><span style="display:flex;"><span>  --content-layers CONTENT_LAYERS [CONTENT_LAYERS ...]
+</span></span><span style="display:flex;"><span>                        specify the content layers, space separated
+</span></span><span style="display:flex;"><span>  --style-layers STYLE_LAYERS [STYLE_LAYERS ...]
+</span></span><span style="display:flex;"><span>                        specify the style layers, space separated
+</span></span></code></pre></div><h2 id="monitoring-stylization">Monitoring stylization<a hidden class="anchor" aria-hidden="true" href="#monitoring-stylization">#</a></h2>
+<p>You can also monitor how your image is changing over many iterations, as well as the style, content and total variation losses.</p>
+<p>To do this, simply run the following in a different terminal:</p>
+<pre tabindex="0"><code>tensorboard --logdir=runs --samples_per_plugin images={MAX IMAGES}
+</code></pre><p>You&rsquo;ll be able to see what your image looks like after each 50 iterations.</p>
+<p>Here&rsquo;s how it will look like:</p>
+<div align="center">
+    <img src="/images/projects/neural-style-transfer/tensorboard.gif"/>
+<div>
+
+
+  </div>
+
+  <footer class="post-footer">
+    <ul class="post-tags">
+    </ul>
+  </footer>
+</article>
+    </main>
+    
+<footer class="footer">
+    <span>&copy; 2023 <a href="https://igreat.github.io/">Mujtaba</a></span>
+    <span>
+        Powered by
+        <a href="https://gohugo.io/" rel="noopener noreferrer" target="_blank">Hugo</a> &
+        <a href="https://github.com/adityatelange/hugo-PaperMod/" rel="noopener" target="_blank">PaperMod</a>
+    </span>
+</footer>
+<a href="#top" aria-label="go to top" title="Go to Top (Alt + G)" class="top-link" id="top-link" accesskey="g">
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 12 6" fill="currentColor">
+        <path d="M12 6H0l6-6z" />
+    </svg>
+</a>
+
+<script>
+    let menu = document.getElementById('menu')
+    if (menu) {
+        menu.scrollLeft = localStorage.getItem("menu-scroll-position");
+        menu.onscroll = function () {
+            localStorage.setItem("menu-scroll-position", menu.scrollLeft);
+        }
+    }
+
+    document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+        anchor.addEventListener("click", function (e) {
+            e.preventDefault();
+            var id = this.getAttribute("href").substr(1);
+            if (!window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
+                document.querySelector(`[id='${decodeURIComponent(id)}']`).scrollIntoView({
+                    behavior: "smooth"
+                });
+            } else {
+                document.querySelector(`[id='${decodeURIComponent(id)}']`).scrollIntoView();
+            }
+            if (id === "top") {
+                history.replaceState(null, null, " ");
+            } else {
+                history.pushState(null, null, `#${id}`);
+            }
+        });
+    });
+
+</script>
+<script>
+    var mybutton = document.getElementById("top-link");
+    window.onscroll = function () {
+        if (document.body.scrollTop > 800 || document.documentElement.scrollTop > 800) {
+            mybutton.style.visibility = "visible";
+            mybutton.style.opacity = "1";
+        } else {
+            mybutton.style.visibility = "hidden";
+            mybutton.style.opacity = "0";
+        }
+    };
+
+</script>
+<script>
+    document.getElementById("theme-toggle").addEventListener("click", () => {
+        if (document.body.className.includes("dark")) {
+            document.body.classList.remove('dark');
+            localStorage.setItem("pref-theme", 'light');
+        } else {
+            document.body.classList.add('dark');
+            localStorage.setItem("pref-theme", 'dark');
+        }
+    })
+
+</script>
+</body>
+
+</html>

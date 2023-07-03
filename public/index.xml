@@ -1,10 +1,70 @@
 <?xml version="1.0" encoding="utf-8" standalone="yes"?>
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom" xmlns:content="http://purl.org/rss/1.0/modules/content/">
   <channel>
-    <title>Great&#39;s Portfolio</title>
-    <link>/</link>
-    <description>Recent content on Great&#39;s Portfolio</description>
+    <title>Mujtaba</title>
+    <link>https://igreat.github.io/</link>
+    <description>Recent content on Mujtaba</description>
     <generator>Hugo -- gohugo.io</generator>
-    <language>= en-us</language><atom:link href="/index.xml" rel="self" type="application/rss+xml" />
+    <language>en-us</language>
+    <lastBuildDate>Sun, 01 Jan 2023 20:45:01 +0400</lastBuildDate><atom:link href="https://igreat.github.io/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>Fast Style Transfer 🏎💨🖌️🎨🧠</title>
+      <link>https://igreat.github.io/projects/fast-style-transfer/</link>
+      <pubDate>Sun, 01 Jan 2023 20:45:01 +0400</pubDate>
+      
+      <guid>https://igreat.github.io/projects/fast-style-transfer/</guid>
+      <description>Background 📖📕 In this project, I will do a PyTorch implemention of the fast neural style transfer algorithm described in the paper Perceptual Losses for Real-Time Style Transfer and Super-Resolution by Justin Johnson, Alexandre Alahi, and Li Fei-Fei.
+This method essentially involves training a model to approximate the optimization based neural style transfer. The benefit is that it runs about 3 orders of magnitude faster!
+Because of its improved inference time, it&amp;rsquo;s feasible to run style transfer in real time as you&amp;rsquo;ll also.</description>
+    </item>
+    
+    <item>
+      <title>Visualizing Neural Networks 👁️🧠</title>
+      <link>https://igreat.github.io/blog/manifold_hypothesis/</link>
+      <pubDate>Sat, 31 Dec 2022 20:11:43 +0400</pubDate>
+      
+      <guid>https://igreat.github.io/blog/manifold_hypothesis/</guid>
+      <description>Neural networks are long assumed to be a black box, and though that might still be true to an extent, it can be very helpful to try to understand what’s going on inside it. In this blog post, I’ll try to crack open this black box and present some very intuitive ways to interpret neural nets.
+Knowing very surface-level linear algebra and neural network basics will make this post flow much easier.</description>
+    </item>
+    
+    <item>
+      <title>Resume 🎓📜</title>
+      <link>https://igreat.github.io/resume/</link>
+      <pubDate>Tue, 02 Aug 2022 19:14:15 -0700</pubDate>
+      
+      <guid>https://igreat.github.io/resume/</guid>
+      <description>Education June-July 2022 Mathematics for Machine Learning (Imperial College London) Strengthened my knowledge in multivariate calculus, linear algebra and stats Implemented dimensionality reduction via PCA Compared to the machine learning course, I had to understand all the rigorous theory behind the algorithm Earned an online certificate March-April 2022 Machine Learning Course (Stanford University) Learned the fundamentals of machine learning Finished multiple machine learning projects that include: Multi-feature linear regression Implementing Neural Networks from scratch to recognize handwritten digits Image compression using clustering algorithms and SVM or PCA Recommendation systems Basics of AI for Computer Vision Earned an online certificate 2019 - 2021 Yarub bin Balarab High School, Al Huwail, Wilayat Saham Grades: 99.</description>
+    </item>
+    
+    <item>
+      <title>Neural Style Transfer 🖌️🎨🧠</title>
+      <link>https://igreat.github.io/projects/neural-style-transfer/</link>
+      <pubDate>Sun, 31 Jul 2022 23:39:17 -0700</pubDate>
+      
+      <guid>https://igreat.github.io/projects/neural-style-transfer/</guid>
+      <description>In this project I will do a PyTorch implementation of the paper A Neural Algorithm of Artistic Style by Leon A. Gatys, Alexander S. Ecker, and Matthias Bethge.
+The repository of this project can be found here.
+Background By using a deep CNN trained on a large dataset, we can extract content features and style features in order to produce the desired combination of the two in one image. Here is an example of the Sultan Qaboos Grand Mosque mixed with the style of the Starry Night by Vincent van Gogh.</description>
+    </item>
+    
+    <item>
+      <title>Hello there 👋</title>
+      <link>https://igreat.github.io/about/</link>
+      <pubDate>Sun, 31 Jul 2022 23:05:32 -0700</pubDate>
+      
+      <guid>https://igreat.github.io/about/</guid>
+      <description>Glad you came to learn more about me!</description>
+    </item>
+    
+    <item>
+      <title></title>
+      <link>https://igreat.github.io/videos/</link>
+      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+      
+      <guid>https://igreat.github.io/videos/</guid>
+      <description>Videos I Made 😎 What Are Neural Networks Even Doing? In this video, I try to crack open the black box we call a neural network 💪💪 How Do Computers See Images? - Neural Networks Quick introduction to deep learning and neural networks 🧠 How I Went From 50wpm to 100wpm in 2 Months A documentation of my journey to reach a typing speed of 100 WPM </description>
+    </item>
+    
   </channel>
 </rss>

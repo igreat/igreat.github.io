@@ -36,7 +36,7 @@ params:
         enabled: true
         title: "Welcome!👋"
         subtitle: "I am Mujtaba, a programmer that loves exploring 🚀"
-        imageUrl: "images/my-face-informal.jpeg"
+        imageUrl: "images/eren.jpg"
         imageTitle: "my picture"
         imageWidth: 256
         imageHeight: 256

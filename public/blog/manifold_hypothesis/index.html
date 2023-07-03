@@ -1,0 +1,437 @@
+<!DOCTYPE html>
+<html lang="en" dir="auto">
+
+<head><meta charset="utf-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+<meta name="robots" content="index, follow">
+<title>Visualizing Neural Networks 👁️🧠 | Mujtaba</title>
+<meta name="keywords" content="">
+<meta name="description" content="Neural networks are long assumed to be a black box, and though that might still be true to an extent, it can be very helpful to try to understand what’s going on inside it. In this blog post, I’ll try to crack open this black box and present some very intuitive ways to interpret neural nets.
+Knowing very surface-level linear algebra and neural network basics will make this post flow much easier.">
+<meta name="author" content="">
+<link rel="canonical" href="https://igreat.github.io/blog/manifold_hypothesis/">
+<link crossorigin="anonymous" href="/assets/css/stylesheet.bc1149f4a72aa4858d3a9f71462f75e5884ffe8073ea9d6d5761d5663d651e20.css" integrity="sha256-vBFJ9KcqpIWNOp9xRi915YhP/oBz6p1tV2HVZj1lHiA=" rel="preload stylesheet" as="style">
+<script defer crossorigin="anonymous" src="/assets/js/highlight.f413e19d0714851f6474e7ee9632408e58ac146fbdbe62747134bea2fa3415e0.js" integrity="sha256-9BPhnQcUhR9kdOfuljJAjlisFG&#43;9vmJ0cTS&#43;ovo0FeA="
+    onload="hljs.initHighlightingOnLoad();"></script>
+<link rel="icon" href="https://igreat.github.io/favicon.ico">
+<link rel="icon" type="image/png" sizes="16x16" href="https://igreat.github.io/favicon-16x16.png">
+<link rel="icon" type="image/png" sizes="32x32" href="https://igreat.github.io/favicon-32x32.png">
+<link rel="apple-touch-icon" href="https://igreat.github.io/apple-touch-icon.png">
+<link rel="mask-icon" href="https://igreat.github.io/safari-pinned-tab.svg">
+<meta name="theme-color" content="#2e2e33">
+<meta name="msapplication-TileColor" content="#2e2e33">
+<noscript>
+    <style>
+        #theme-toggle,
+        .top-link {
+            display: none;
+        }
+
+    </style>
+    <style>
+        @media (prefers-color-scheme: dark) {
+            :root {
+                --theme: rgb(29, 30, 32);
+                --entry: rgb(46, 46, 51);
+                --primary: rgb(218, 218, 219);
+                --secondary: rgb(155, 156, 157);
+                --tertiary: rgb(65, 66, 68);
+                --content: rgb(196, 196, 197);
+                --hljs-bg: rgb(46, 46, 51);
+                --code-bg: rgb(55, 56, 62);
+                --border: rgb(51, 51, 51);
+            }
+
+            .list {
+                background: var(--theme);
+            }
+
+            .list:not(.dark)::-webkit-scrollbar-track {
+                background: 0 0;
+            }
+
+            .list:not(.dark)::-webkit-scrollbar-thumb {
+                border-color: var(--theme);
+            }
+        }
+
+    </style>
+</noscript><meta property="og:title" content="Visualizing Neural Networks 👁️🧠" />
+<meta property="og:description" content="Neural networks are long assumed to be a black box, and though that might still be true to an extent, it can be very helpful to try to understand what’s going on inside it. In this blog post, I’ll try to crack open this black box and present some very intuitive ways to interpret neural nets.
+Knowing very surface-level linear algebra and neural network basics will make this post flow much easier." />
+<meta property="og:type" content="article" />
+<meta property="og:url" content="https://igreat.github.io/blog/manifold_hypothesis/" /><meta property="article:section" content="blog" />
+<meta property="article:published_time" content="2022-12-31T20:11:43&#43;04:00" />
+<meta property="article:modified_time" content="2022-12-31T20:11:43&#43;04:00" />
+
+<meta name="twitter:card" content="summary"/>
+<meta name="twitter:title" content="Visualizing Neural Networks 👁️🧠"/>
+<meta name="twitter:description" content="Neural networks are long assumed to be a black box, and though that might still be true to an extent, it can be very helpful to try to understand what’s going on inside it. In this blog post, I’ll try to crack open this black box and present some very intuitive ways to interpret neural nets.
+Knowing very surface-level linear algebra and neural network basics will make this post flow much easier."/>
+
+
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "BreadcrumbList",
+  "itemListElement": [
+    {
+      "@type": "ListItem",
+      "position":  1 ,
+      "name": "Blogs",
+      "item": "https://igreat.github.io/blog/"
+    }, 
+    {
+      "@type": "ListItem",
+      "position":  2 ,
+      "name": "Visualizing Neural Networks 👁️🧠",
+      "item": "https://igreat.github.io/blog/manifold_hypothesis/"
+    }
+  ]
+}
+</script>
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "BlogPosting",
+  "headline": "Visualizing Neural Networks 👁️🧠",
+  "name": "Visualizing Neural Networks 👁️🧠",
+  "description": "Neural networks are long assumed to be a black box, and though that might still be true to an extent, it can be very helpful to try to understand what’s going on inside it. In this blog post, I’ll try to crack open this black box and present some very intuitive ways to interpret neural nets.\nKnowing very surface-level linear algebra and neural network basics will make this post flow much easier.",
+  "keywords": [
+    
+  ],
+  "articleBody": "Neural networks are long assumed to be a black box, and though that might still be true to an extent, it can be very helpful to try to understand what’s going on inside it. In this blog post, I’ll try to crack open this black box and present some very intuitive ways to interpret neural nets.\nKnowing very surface-level linear algebra and neural network basics will make this post flow much easier. However, I try to not skip through any details. The video version of the blog post, which can be found here, assumes much less background.\nThis blog will be separated into three parts:\nVisualizing Neural Networks in 2D Why Use More Neurons Per Layer? Manifold Hypothesis Visualizing Neural Networks In 2D Let’s start with a simple example. Let’s say we have these two entangled spirals of different color, and our goal is to essentially separate them using a neural network.\nThis could be seen as drawing some extremely nonlinear boundary line that separates the two colors. Now I could just make a neural network that looks like this:\nIt takes as input the x and y coordinates of the dot, and outputs a value between 0 and 1, where a value closer to 0 means it’s purple, otherwise it’s red. The network will easily reach an error of 0, but our purpose here is to visualize what the network might be doing.\nLet’s make our neural network one layer. Our input of 2 dimensions (x and y coordinates) will be mapped to a vector of 8 dimensions (since it has 8 neurons).\nUnfortunately, our human brains aren’t capable of visualizing anything higher than 3 dimensions, so let’s bring down the neurons in the second layer to only 2.\nThis is much easier to visualize. We can now just treat that two dimensional vector that is output as x y coordinates. Or in other words, given a dot in our original 2D coordinate plane, that layer can be seen as just moving it to another place in the same coordinate plane.\nWe know that a neuron in the second layer essentially represents a weighted sum between the weights and values of the previous layer’s neurons. That weighted sum is then passed to some other non-linear function like the sigmoid.\nWe do this for both the new x and y coordinates, and the whole thing becomes identical to mutiplying the original coordinate vector with a 2 by 2 matrix and then passing the result to a nonlinearity.\nAnd this makes sense given that all the layer is doing is moving the dot linearily and then somehow nonlinearily, and if you know a bit of linear algebra, then you’ll know that matrix multiplication fundamentally represents a linear transformation to vectors. It’s also a useful visualization to see what this transformation does to the entire space at once as depicted from how it transforms the grid lines.\nOur choice for non linearity from now on will be the tanh, which is defined as follows:\nand as you can see it squishes our input into the range [-1 to 1].\nLet’s look at what happens to our space when we apply a matrix multiplication followed by a tanh.\nHere tanh is being applied to both the x and y coordinate. In other words, it’s applied element wise to our coordinate vectors, which is why both the x and y coordinates are squished to a range of -1 to 1.\nIn practice, we also add a constant we call the bias along with the weighted sum. This represents a translation. Here is a linear transformation followed by a translation followed by a tanh.\nThis now represents how a full layer would transform our input and space.\nNote that a linear transformation followed by a translation is called an affine transformation, which is what we’ll call it from now on.\nGoing back to our spiral example, all we’re saying here is that a neural network layer is an affine transformation followed by a nonlinearity. If we make sure all our layers are only 2 neurons wide, then we can show the neural network as simply a series of those transformations in 2D!\nSo how would this look like for a fully trained neural network? Here’s the code I used to build the neural network using PyTorch, and you don’t need to understand the code, just that I used 5 fully connected layers each mapping from 2 neurons to 2 other neurons, and that I used the tanh as my choice of nonlinearity.\nimport torch from torch import nn class SpiralsClassifier2D(nn.Module): def __init__(self): super(SpiralsClassifier2D, self).__init__() # fully connected layers (FC) self.fc1 = nn.Linear(2, 2) self.fc2 = nn.Linear(2, 2) self.fc3 = nn.Linear(2, 2) self.fc4 = nn.Linear(2, 2) self.fc5 = nn.Linear(2, 2) def forward(self, input): x = torch.tanh(self.fc1(x)) x = torch.tanh(self.fc2(x)) x = torch.tanh(self.fc3(x)) x = torch.tanh(self.fc4(x)) return self.fc5(x) This is how the network transforms our spiral dots!\nYou can see that our network is stretching and morphing our input in such a way as to cleanly separate the two types of dots.\nAt the end, once our dots are cleanly separated, we now simply draw a linear boundary separating the two classes. This is what the last layer is, which maps to a single number in this case. This can be thought of as projecting our data into a line such that the red dots are as negative as they can be and the blue dots are as positive as they can be. Or perhaps more intuitively with a bit of hand-waving, looking at this line’s perpendicular which gives us a nice linear boundary between the two classes.\nTo me, this is just beautiful. Behind all this complexity, this is the fundamental principle behind neural networks: affine transformations followed by nonlinear transformations.\nWhy Use More Neurons Per Layer? Now, using just two neurons is actually a huge limitation to our neural network. In fact, there are some boundaries that our network simply won’t be able to draw with just two neurons with a tanh activation no matter how many layers we add. Let’s look at this example where we want to separate the inner dots from the outer dots.\nIt’s possible to separate these using this specifically chosen nonlinear transformation (I actually used its inverse to generate the dots):\nNow let’s try to see how our network of only two neurons per layer with a tanh activation will do as visualized by a sequence of transformation.\nLet’s also look at it from another perspective, where we view some of the layers’ outputs in real time, and then show how those outputs evolve as the model trains.\nEvidently, the model tries so hard to separate the two boundaries, but it just fails. Intuitively, you can think through what type of continuous morphing the model will have to do to separate the two colors, and that we simply can’t separate the two regions. Well, that is unless we tear the space somehow, but neither the affine transformation nor the tanh can do that. Besides, that would cause discontinuity problems and make training tricky.\nBut neural networks are universal approximators, so we already know that it can fit this boundary given enough neurons in one layer.\nHere, and this is really cool, by just adding one more neuron and thus changing output spaces into 3 dimensional spaces, we get the following:\nOnce our model got access to the third dimension, i.e. got 3 neurons per layer, it very quickly found a way to separate the two regions by allowing the space to “bulge” out into the third dimension, and then the two regions simply become separable by a plane in the middle. It essentially got access to way more wiggle room to move around and separate.\nI was struck in awe when I saw this for the first time. This essentially demonstrates to us, intuitively, the utility of using more neurons per hidden layer, i.e, increasing the dimensions of our hidden layers.\nManifold Hypothesis But how does this translate to real life datasets though? I mean, we won’t exactly get a dataset of, say, 28 by 28 handwritten digits images, where the images will form a structured shape within the input space, right?\nAccording to the manifold hypothesis, it could be true. The manifold hypothesis says that many high-dimensional data sets that occur in the real world actually lie along low-dimensional manifolds inside that high-dimensional space. To understand what a manifold is, here are a bunch of examples. Examples of one dimensional manifolds lying in a 2 dimensional space include a line or a circle. Two dimensional manifolds are also called surfaces, which include a plane, the outside surface of a sphere, a torus, etc. And just for completeleness, a zero dimensional manifold is a dot.\nAnd to repeat, the manifold hypothesis says that real world datasets actually form these manifolds. The goal of the neural network is to then stretch and morph and disentangle these manifolds such that we can finally separate them using hyperplanes.\nI think a good way to end this video is to try to show this concept in a real world dataset. Here, I’ll try to visualize what a regular neural network would do on the MNIST dataset, which is a collection of 28 by 28 grayscale images of handwritten digits.\nI’ll use this very simple classic neural network, but I won’t bottleneck it to only 2 or 3 units per neurons per layer.\nimport torch from torch import nn class MnistClassifier(nn.Module): def __init__(self): super(MnistClassifier, self).__init__() # fully connected linear layers (FC) self.fc1 = nn.Linear(784, 128) self.fc2 = nn.Linear(128, 64) self.fc3 = nn.Linear(64, 10) # output is 10 dimensions because there are 10 different digits def forward(self, x) x = torch.tanh(self.fc1(x)) x = torch.tanh(self.fc2(x)) return self.fc3(x) I’ll instead perform PCA on each layer’s output to reduce the dimensions to 3. You don’t need to understand PCA, but it basically linearly projects the data to a lower dimension such that it maintains the maximum amount of variability or structure.\nAs you can see, by the final layers, the network already found a way to morph the space in such a way as to position the digits into their own clusters.\nWe can also see how digits that are somewhat similar are closer to one another, which makes sense. In the very high dimensional space where mnist digits lie, digits that are similar to one another should lie close to one another. And when our neural network tries to separate the digits, it can’t help but place similar digits closer to one another.\nNeural networks are really not that well understood theoretically, but it can still sometimes be useful to think about how and why this blackbox we call a neural network actually works. I hope this blog post helped at least shine some light inside this black box we call a neural network.\n",
+  "wordCount" : "1817",
+  "inLanguage": "en",
+  "datePublished": "2022-12-31T20:11:43+04:00",
+  "dateModified": "2022-12-31T20:11:43+04:00",
+  "mainEntityOfPage": {
+    "@type": "WebPage",
+    "@id": "https://igreat.github.io/blog/manifold_hypothesis/"
+  },
+  "publisher": {
+    "@type": "Organization",
+    "name": "Mujtaba",
+    "logo": {
+      "@type": "ImageObject",
+      "url": "https://igreat.github.io/favicon.ico"
+    }
+  }
+}
+</script>
+</head>
+
+<body class="" id="top">
+<script>
+    if (localStorage.getItem("pref-theme") === "dark") {
+        document.body.classList.add('dark');
+    } else if (localStorage.getItem("pref-theme") === "light") {
+        document.body.classList.remove('dark')
+    } else if (window.matchMedia('(prefers-color-scheme: dark)').matches) {
+        document.body.classList.add('dark');
+    }
+
+</script>
+
+<header class="header">
+    <nav class="nav">
+        <div class="logo">
+            <a href="https://igreat.github.io/" accesskey="h" title="Mujtaba (Alt + H)">Mujtaba</a>
+            <div class="logo-switches">
+                <button id="theme-toggle" accesskey="t" title="(Alt + T)">
+                    <svg id="moon" xmlns="http://www.w3.org/2000/svg" width="24" height="18" viewBox="0 0 24 24"
+                        fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
+                        stroke-linejoin="round">
+                        <path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"></path>
+                    </svg>
+                    <svg id="sun" xmlns="http://www.w3.org/2000/svg" width="24" height="18" viewBox="0 0 24 24"
+                        fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
+                        stroke-linejoin="round">
+                        <circle cx="12" cy="12" r="5"></circle>
+                        <line x1="12" y1="1" x2="12" y2="3"></line>
+                        <line x1="12" y1="21" x2="12" y2="23"></line>
+                        <line x1="4.22" y1="4.22" x2="5.64" y2="5.64"></line>
+                        <line x1="18.36" y1="18.36" x2="19.78" y2="19.78"></line>
+                        <line x1="1" y1="12" x2="3" y2="12"></line>
+                        <line x1="21" y1="12" x2="23" y2="12"></line>
+                        <line x1="4.22" y1="19.78" x2="5.64" y2="18.36"></line>
+                        <line x1="18.36" y1="5.64" x2="19.78" y2="4.22"></line>
+                    </svg>
+                </button>
+            </div>
+        </div>
+        <ul id="menu">
+            <li>
+                <a href="https://igreat.github.io/about/" title="About">
+                    <span>About</span>
+                </a>
+            </li>
+            <li>
+                <a href="https://igreat.github.io/videos/" title="Videos">
+                    <span>Videos</span>
+                </a>
+            </li>
+            <li>
+                <a href="https://igreat.github.io/resume/" title="Resume">
+                    <span>Resume</span>
+                </a>
+            </li>
+            <li>
+                <a href="https://igreat.github.io/blog/" title="Blog">
+                    <span>Blog</span>
+                </a>
+            </li>
+            <li>
+                <a href="https://igreat.github.io/projects/" title="Projects">
+                    <span>Projects</span>
+                </a>
+            </li>
+        </ul>
+    </nav>
+</header>
+<main class="main">
+
+<article class="post-single">
+  <header class="post-header">
+    
+    <h1 class="post-title">
+      Visualizing Neural Networks 👁️🧠
+    </h1>
+    <div class="post-meta"><span title='2022-12-31 20:11:43 +0400 +04'>December 31, 2022</span>
+
+</div>
+  </header> 
+  <div class="post-content"><p>Neural networks are long assumed to be a <strong>black box</strong>, and though that might still be true to an extent, it can be very helpful to try to understand what’s going on inside it. In this blog post, I’ll try to crack open this black box and present some very intuitive ways to interpret neural nets.</p>
+<p>Knowing very surface-level linear algebra and neural network basics will make this post flow much easier. However, I try to not skip through any details. The video version of the blog post, which can be found <a href="https://www.youtube.com/watch?v=pdNYw6qwuNc">here</a>, assumes much less background.</p>
+<p>This blog will be separated into three parts:</p>
+<ul>
+<li><a href="#visualizing-neural-networks-in-2D">Visualizing Neural Networks in 2D</a></li>
+<li><a href="#why-use-more-neurons-per-layer">Why Use More Neurons Per Layer?</a></li>
+<li><a href="#manifold-hypothesis">Manifold Hypothesis</a></li>
+</ul>
+<h2 id="visualizing-neural-networks-in-2d">Visualizing Neural Networks In 2D<a hidden class="anchor" aria-hidden="true" href="#visualizing-neural-networks-in-2d">#</a></h2>
+<p>Let’s start with a simple example. Let’s say we have these two entangled spirals of different color, and our goal is to essentially separate them using a neural network.</p>
+<p align="center">
+    <img style="display:inline; max-height: 300px" src="/images/blogs/manifold_hypothesis/spirals2d.png" alt="Boundary"/>
+</p>
+This could be seen as drawing some extremely nonlinear boundary line that separates the two colors. 
+<p>Now I could just make a neural network that looks like this:</p>
+<p align="center">
+    <img style="display:inline" src="/images/blogs/manifold_hypothesis/full_network_boundary.gif" alt="Boundary"/>
+</p>
+<p>It takes as input the x and y coordinates of the dot, and outputs a value between 0 and 1, where a value closer to 0 means it’s purple, otherwise it’s red. The network will easily reach an error of 0, but our purpose here is to visualize what the network might be doing.</p>
+<p>Let’s make our neural network one layer. Our input of 2 dimensions (x and y coordinates) will be mapped to a vector of 8 dimensions (since it has 8 neurons).</p>
+<p align="center">
+    <img style="display:inline; max-height: 256px" src="/images/blogs/manifold_hypothesis/two_to_eight.png" alt="Boundary"/>
+</p>
+<p>Unfortunately, our human brains aren&rsquo;t capable of visualizing anything higher than 3 dimensions, so let&rsquo;s bring down the neurons in the second layer to only 2.</p>
+<p align="center">
+    <img style="display:inline; max-height: 128px" src="/images/blogs/manifold_hypothesis/two_to_two.png" alt="Boundary"/>
+</p>
+<p>This is much easier to visualize. We can now just treat that two dimensional vector that is output as x y coordinates. Or in other words, given a dot in our original 2D coordinate plane, that layer can be seen as just moving it to another place in the same coordinate plane.</p>
+<p>We know that a neuron in the second layer essentially represents a <strong>weighted sum between the weights and values</strong> of the previous layer&rsquo;s neurons. That weighted sum is then passed to some other non-linear function like the sigmoid.</p>
+<p align="center">
+    <img style="display:inline; max-height: 180px" src="/images/blogs/manifold_hypothesis/weighted_sum.gif" alt="Boundary"/>
+    <img style="display:inline; max-height: 180px" src="/images/blogs/manifold_hypothesis/non_linearity.png" alt="Boundary"/>
+</p>
+<p>We do this for both the new x and y coordinates, and the whole thing becomes identical to <strong>mutiplying the original coordinate vector with a 2 by 2 matrix</strong> and then passing the result to a nonlinearity.</p>
+<p align="center">
+    <img style="display:inline; max-height: 180px" src="/images/blogs/manifold_hypothesis/matrix_multiply.gif" alt="Boundary"/>
+</p>
+<p>And this makes sense given that all the layer is doing is moving the dot linearily and then somehow nonlinearily, and  if you know a bit of linear algebra, then you’ll know that matrix multiplication fundamentally represents a <strong>linear transformation</strong> to vectors. It’s also a useful visualization to see what this transformation does to the entire space at once as depicted from how it transforms the grid lines.</p>
+<p align="center">
+    <img src="/images/blogs/manifold_hypothesis/linear_transform.gif"/ style="max-height: 256px">
+</p>
+<p>Our choice for non linearity from now on will be the <strong>tanh</strong>, which is defined as follows:</p>
+<p align="center">
+    <img src="/images/blogs/manifold_hypothesis/tanh_graph.gif"/ style="display:inline; max-height: 200px">
+</p>
+<p>and as you can see it squishes our input into the range [-1 to 1].</p>
+<p>Let’s look at what happens to our space when we apply a matrix multiplication followed by a tanh.</p>
+<p align="center">
+    <img src="/images/blogs/manifold_hypothesis/tanh_transform.gif"/ style="display:inline; max-height: 200px">
+</p>
+<p>Here tanh is being applied to both the x and y coordinate. In other words, it’s applied element wise to our coordinate vectors, which is why both the x and y coordinates are squished to a range of -1 to 1.</p>
+<p>In practice, we also add a constant we call the bias along with the weighted sum. This represents a translation.
+Here is a linear transformation followed by a translation followed by a tanh.</p>
+<p align="center">
+    <img src="/images/blogs/manifold_hypothesis/full_layer_transform.gif"/ style="display:inline; max-height: 300px">
+</p>
+<p>This now represents how a full layer would transform our input and space.</p>
+<p>Note that a linear transformation followed by a translation is called an <strong>affine transformation</strong>, which is what we’ll call it from now on.</p>
+<p>Going back to our spiral example, all we’re saying here is that a neural network layer is an affine transformation followed by a nonlinearity. If we make sure all our layers are only 2 neurons wide, then we can show the neural network as simply a series of those transformations in 2D!</p>
+<p>So how would this look like for a fully trained neural network? Here’s the code I used to build the neural network using PyTorch, and you don’t need to understand the code, just that I used 5 fully connected layers each mapping from 2 neurons to 2 other neurons, and that I used the tanh as my choice of nonlinearity.</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-python" data-lang="python"><span style="display:flex;"><span><span style="color:#f92672">import</span> torch
+</span></span><span style="display:flex;"><span><span style="color:#f92672">from</span> torch <span style="color:#f92672">import</span> nn
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">class</span> <span style="color:#a6e22e">SpiralsClassifier2D</span>(nn<span style="color:#f92672">.</span>Module):
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">def</span> __init__(self):
+</span></span><span style="display:flex;"><span>        super(SpiralsClassifier2D, self)<span style="color:#f92672">.</span>__init__()
+</span></span><span style="display:flex;"><span>        <span style="color:#75715e"># fully connected layers (FC)</span>
+</span></span><span style="display:flex;"><span>        self<span style="color:#f92672">.</span>fc1 <span style="color:#f92672">=</span> nn<span style="color:#f92672">.</span>Linear(<span style="color:#ae81ff">2</span>, <span style="color:#ae81ff">2</span>)
+</span></span><span style="display:flex;"><span>        self<span style="color:#f92672">.</span>fc2 <span style="color:#f92672">=</span> nn<span style="color:#f92672">.</span>Linear(<span style="color:#ae81ff">2</span>, <span style="color:#ae81ff">2</span>)
+</span></span><span style="display:flex;"><span>        self<span style="color:#f92672">.</span>fc3 <span style="color:#f92672">=</span> nn<span style="color:#f92672">.</span>Linear(<span style="color:#ae81ff">2</span>, <span style="color:#ae81ff">2</span>)
+</span></span><span style="display:flex;"><span>        self<span style="color:#f92672">.</span>fc4 <span style="color:#f92672">=</span> nn<span style="color:#f92672">.</span>Linear(<span style="color:#ae81ff">2</span>, <span style="color:#ae81ff">2</span>)
+</span></span><span style="display:flex;"><span>        self<span style="color:#f92672">.</span>fc5 <span style="color:#f92672">=</span> nn<span style="color:#f92672">.</span>Linear(<span style="color:#ae81ff">2</span>, <span style="color:#ae81ff">2</span>)
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">def</span> <span style="color:#a6e22e">forward</span>(self, input):
+</span></span><span style="display:flex;"><span>        x <span style="color:#f92672">=</span> torch<span style="color:#f92672">.</span>tanh(self<span style="color:#f92672">.</span>fc1(x))
+</span></span><span style="display:flex;"><span>        x <span style="color:#f92672">=</span> torch<span style="color:#f92672">.</span>tanh(self<span style="color:#f92672">.</span>fc2(x))
+</span></span><span style="display:flex;"><span>        x <span style="color:#f92672">=</span> torch<span style="color:#f92672">.</span>tanh(self<span style="color:#f92672">.</span>fc3(x))
+</span></span><span style="display:flex;"><span>        x <span style="color:#f92672">=</span> torch<span style="color:#f92672">.</span>tanh(self<span style="color:#f92672">.</span>fc4(x))
+</span></span><span style="display:flex;"><span>        <span style="color:#66d9ef">return</span> self<span style="color:#f92672">.</span>fc5(x)
+</span></span></code></pre></div><p>This is how the network transforms our spiral dots!</p>
+<p align="center">
+    <img src="/images/blogs/manifold_hypothesis/stretching2d.gif"/ style="display:inline; max-height: 320px">
+</p>
+<p>You can see that our network is stretching and morphing our input in such a way as to cleanly separate the two types of dots.</p>
+<p>At the end, once our dots are cleanly separated, we now simply draw a linear boundary separating the two classes. This is what the last layer is, which maps to a single number in this case. This can be thought of as projecting our data into a line such that the red dots are as negative as they can be and the blue dots are as positive as they can be. Or perhaps more intuitively with a bit of hand-waving, looking at this line’s perpendicular which gives us a nice linear boundary between the two classes.</p>
+<p align="center">
+    <img src="/images/blogs/manifold_hypothesis/linear_boundary.png"/ style="display:inline; max-height: 320px">
+</p>
+<p>To me, this is just beautiful. Behind all this complexity, this is the fundamental principle behind neural networks: <strong>affine transformations followed by nonlinear transformations.</strong></p>
+<h2 id="why-use-more-neurons-per-layer">Why Use More Neurons Per Layer?<a hidden class="anchor" aria-hidden="true" href="#why-use-more-neurons-per-layer">#</a></h2>
+<p>Now, using just two neurons is actually a huge limitation to our neural network. In fact, there are some boundaries that our network simply won’t be able to draw with just two neurons with a tanh activation no matter how many layers we add. Let’s look at this example where we want to separate the <strong>inner dots from the outer dots</strong>.</p>
+<p align="center">
+    <img src="/images/blogs/manifold_hypothesis/disks2d.png"/ style="display:inline; max-height: 320px">
+</p>
+<p>It&rsquo;s possible to separate these using this specifically chosen nonlinear transformation <em>(I actually used its inverse to generate the dots)</em>:</p>
+<p align="center">
+    <img src="/images/blogs/manifold_hypothesis/nonlinear_transform.gif"/ style="display:inline; max-height: 320px">
+</p>
+<p>Now let’s try to see how our network of only two neurons per layer with a tanh activation will do <strong>as visualized by a sequence of transformation</strong>.</p>
+<p align="center">
+    <img src="/images/blogs/manifold_hypothesis/separating_disks2d.gif"/ style="display:inline; max-height: 320px">
+</p>
+<p>Let’s also look at it from another perspective, where we view some of the layers’ outputs in real time, and then show <strong>how those outputs evolve as the model trains.</strong></p>
+<p align="center">
+    <img src="/images/blogs/manifold_hypothesis/training_disks2d.gif"/ style="display:inline; max-height: 320px">
+</p>
+<p>Evidently, the model tries so hard to separate the two boundaries, but it just fails. Intuitively, you can think through what type of continuous morphing the model will have to do to separate the two colors, and that we simply can’t separate the two regions. Well, that is unless we tear the space somehow, but neither the affine transformation nor the tanh can do that. Besides, that would cause discontinuity problems and make training tricky.</p>
+<p>But neural networks are universal approximators, so we already know that it <strong>can</strong> fit this boundary given enough neurons in one layer.</p>
+<p>Here, and this is really cool, by just adding one more neuron and thus changing output spaces into 3 dimensional spaces, we get the following:</p>
+<p align="center">
+    <img src="/images/blogs/manifold_hypothesis/separating_disks3d.gif"/ style="display:inline; max-height: 320px">
+</p>
+<p>Once our model got access to the third dimension, i.e. got 3 neurons per layer, it very quickly found a way to separate the two regions by allowing the space to “bulge” out into the third dimension, and then the two regions simply become separable by a plane in the middle. It essentially got access to way more wiggle room to move around and separate.</p>
+<p>I was struck in awe when I saw this for the first time. <em><strong>This essentially demonstrates to us, intuitively, the utility of using more neurons per hidden layer, i.e, increasing the dimensions of our hidden layers.</strong></em></p>
+<h2 id="manifold-hypothesis">Manifold Hypothesis<a hidden class="anchor" aria-hidden="true" href="#manifold-hypothesis">#</a></h2>
+<p>But how does this translate to real life datasets though? I mean, we won’t exactly get a dataset of, say, 28 by 28 handwritten digits images, where the images will form a structured shape within the input space, right?</p>
+<p align="center">
+    <img src="/images/blogs/manifold_hypothesis/dataset_examples.png"/ style="display:inline; max-height: 320px">
+</p>
+<p>According to the <a href="https://en.wikipedia.org/wiki/Manifold_hypothesis"><strong>manifold hypothesis</strong></a>, it could be true. The manifold hypothesis says that many high-dimensional data sets that occur in the real world actually lie along low-dimensional manifolds inside that high-dimensional space. To understand what a manifold is, here are a bunch of examples. Examples of one dimensional manifolds lying in a 2 dimensional space include a line or a circle. Two dimensional manifolds are also called surfaces, which include a plane, the outside surface of a sphere, a torus, etc.  And just for completeleness, a zero dimensional manifold is a dot.</p>
+<p align="center">
+    <img src="/images/blogs/manifold_hypothesis/manifold_examples.png"/ style="display:inline; max-height: 320px">
+</p>
+<p>And to repeat, the manifold hypothesis says that real world datasets actually form these manifolds. The goal of the neural network is to then stretch and morph and disentangle these manifolds such that we can finally separate them using <strong>hyperplanes</strong>.</p>
+<p>I think a good way to end this video is to try to show this concept in a real world dataset. Here, I’ll try to visualize what a regular neural network would do on the <strong>MNIST dataset</strong>, which is a collection of 28 by 28 grayscale images of handwritten digits.</p>
+<p align="center">
+    <img src="/images/blogs/manifold_hypothesis/mnist_digits.jpg"/ style="display:inline; max-height: 320px">
+</p>
+<p>I’ll use this very simple classic neural network, but I won’t bottleneck it to only 2 or 3 units per neurons per layer.</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-python" data-lang="python"><span style="display:flex;"><span><span style="color:#f92672">import</span> torch
+</span></span><span style="display:flex;"><span><span style="color:#f92672">from</span> torch <span style="color:#f92672">import</span> nn
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">class</span> <span style="color:#a6e22e">MnistClassifier</span>(nn<span style="color:#f92672">.</span>Module):
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">def</span> __init__(self):
+</span></span><span style="display:flex;"><span>        super(MnistClassifier, self)<span style="color:#f92672">.</span>__init__()
+</span></span><span style="display:flex;"><span>        <span style="color:#75715e"># fully connected linear layers (FC)</span>
+</span></span><span style="display:flex;"><span>        self<span style="color:#f92672">.</span>fc1 <span style="color:#f92672">=</span> nn<span style="color:#f92672">.</span>Linear(<span style="color:#ae81ff">784</span>, <span style="color:#ae81ff">128</span>)
+</span></span><span style="display:flex;"><span>        self<span style="color:#f92672">.</span>fc2 <span style="color:#f92672">=</span> nn<span style="color:#f92672">.</span>Linear(<span style="color:#ae81ff">128</span>, <span style="color:#ae81ff">64</span>)
+</span></span><span style="display:flex;"><span>        self<span style="color:#f92672">.</span>fc3 <span style="color:#f92672">=</span> nn<span style="color:#f92672">.</span>Linear(<span style="color:#ae81ff">64</span>, <span style="color:#ae81ff">10</span>) <span style="color:#75715e"># output is 10 dimensions because there are 10 different digits</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">def</span> <span style="color:#a6e22e">forward</span>(self, x)
+</span></span><span style="display:flex;"><span>        x <span style="color:#f92672">=</span> torch<span style="color:#f92672">.</span>tanh(self<span style="color:#f92672">.</span>fc1(x))
+</span></span><span style="display:flex;"><span>        x <span style="color:#f92672">=</span> torch<span style="color:#f92672">.</span>tanh(self<span style="color:#f92672">.</span>fc2(x))
+</span></span><span style="display:flex;"><span>        <span style="color:#66d9ef">return</span> self<span style="color:#f92672">.</span>fc3(x)
+</span></span></code></pre></div><p>I&rsquo;ll instead perform <a href="https://en.wikipedia.org/wiki/Principal_component_analysis"><strong>PCA</strong></a> on each layer’s output to reduce the dimensions to 3. You don’t need to understand PCA, but it basically linearly projects the data to a lower dimension such that it maintains the maximum amount of variability or structure.</p>
+<p align="center">
+    <img src="/images/blogs/manifold_hypothesis/mnist_separation.gif"/ style="display:inline; max-height: 320px">
+</p>
+<p>As you can see, by the final layers, the network already found a way to morph the space in such a way as to position the digits into their own clusters.</p>
+<p>We can also see how digits that are somewhat similar are closer to one another, which makes sense. In the very high dimensional space where mnist digits lie, digits that are similar to one another should lie close to one another. And when our neural network tries to separate the digits, it can&rsquo;t help but place similar digits closer to one another.</p>
+<p>Neural networks are really not that well understood theoretically, but it can still sometimes be useful to think about how and why this blackbox we call a neural network actually works. I hope this blog post helped at least shine some light inside this black box we call a neural network.</p>
+
+
+  </div>
+
+  <footer class="post-footer">
+    <ul class="post-tags">
+    </ul>
+  </footer>
+</article>
+    </main>
+    
+<footer class="footer">
+    <span>&copy; 2023 <a href="https://igreat.github.io/">Mujtaba</a></span>
+    <span>
+        Powered by
+        <a href="https://gohugo.io/" rel="noopener noreferrer" target="_blank">Hugo</a> &
+        <a href="https://github.com/adityatelange/hugo-PaperMod/" rel="noopener" target="_blank">PaperMod</a>
+    </span>
+</footer>
+<a href="#top" aria-label="go to top" title="Go to Top (Alt + G)" class="top-link" id="top-link" accesskey="g">
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 12 6" fill="currentColor">
+        <path d="M12 6H0l6-6z" />
+    </svg>
+</a>
+
+<script>
+    let menu = document.getElementById('menu')
+    if (menu) {
+        menu.scrollLeft = localStorage.getItem("menu-scroll-position");
+        menu.onscroll = function () {
+            localStorage.setItem("menu-scroll-position", menu.scrollLeft);
+        }
+    }
+
+    document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+        anchor.addEventListener("click", function (e) {
+            e.preventDefault();
+            var id = this.getAttribute("href").substr(1);
+            if (!window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
+                document.querySelector(`[id='${decodeURIComponent(id)}']`).scrollIntoView({
+                    behavior: "smooth"
+                });
+            } else {
+                document.querySelector(`[id='${decodeURIComponent(id)}']`).scrollIntoView();
+            }
+            if (id === "top") {
+                history.replaceState(null, null, " ");
+            } else {
+                history.pushState(null, null, `#${id}`);
+            }
+        });
+    });
+
+</script>
+<script>
+    var mybutton = document.getElementById("top-link");
+    window.onscroll = function () {
+        if (document.body.scrollTop > 800 || document.documentElement.scrollTop > 800) {
+            mybutton.style.visibility = "visible";
+            mybutton.style.opacity = "1";
+        } else {
+            mybutton.style.visibility = "hidden";
+            mybutton.style.opacity = "0";
+        }
+    };
+
+</script>
+<script>
+    document.getElementById("theme-toggle").addEventListener("click", () => {
+        if (document.body.className.includes("dark")) {
+            document.body.classList.remove('dark');
+            localStorage.setItem("pref-theme", 'light');
+        } else {
+            document.body.classList.add('dark');
+            localStorage.setItem("pref-theme", 'dark');
+        }
+    })
+
+</script>
+</body>
+
+</html>

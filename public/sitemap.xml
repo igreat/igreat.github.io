@@ -2,10 +2,35 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9"
   xmlns:xhtml="http://www.w3.org/1999/xhtml">
   <url>
-    <loc>/categories/</loc>
+    <loc>https://igreat.github.io/projects/fast-style-transfer/</loc>
+    <lastmod>2023-01-01T20:45:01+04:00</lastmod>
   </url><url>
-    <loc>/</loc>
+    <loc>https://igreat.github.io/</loc>
+    <lastmod>2023-01-01T20:45:01+04:00</lastmod>
   </url><url>
-    <loc>/tags/</loc>
+    <loc>https://igreat.github.io/projects/</loc>
+    <lastmod>2023-01-01T20:45:01+04:00</lastmod>
+  </url><url>
+    <loc>https://igreat.github.io/blog/</loc>
+    <lastmod>2022-12-31T20:11:43+04:00</lastmod>
+  </url><url>
+    <loc>https://igreat.github.io/blog/manifold_hypothesis/</loc>
+    <lastmod>2022-12-31T20:11:43+04:00</lastmod>
+  </url><url>
+    <loc>https://igreat.github.io/resume/</loc>
+    <lastmod>2022-08-02T19:14:15-07:00</lastmod>
+  </url><url>
+    <loc>https://igreat.github.io/projects/neural-style-transfer/</loc>
+    <lastmod>2022-07-31T23:39:17-07:00</lastmod>
+  </url><url>
+    <loc>https://igreat.github.io/about/</loc>
+    <lastmod>2022-07-31T23:05:32-07:00</lastmod>
+  </url><url>
+    <loc>https://igreat.github.io/videos/</loc>
+    <priority>0</priority>
+  </url><url>
+    <loc>https://igreat.github.io/categories/</loc>
+  </url><url>
+    <loc>https://igreat.github.io/tags/</loc>
   </url>
 </urlset>

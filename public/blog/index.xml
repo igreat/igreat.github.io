@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom" xmlns:content="http://purl.org/rss/1.0/modules/content/">
+  <channel>
+    <title>Blogs on Mujtaba</title>
+    <link>https://igreat.github.io/blog/</link>
+    <description>Recent content in Blogs on Mujtaba</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>en-us</language>
+    <lastBuildDate>Sat, 31 Dec 2022 20:11:43 +0400</lastBuildDate><atom:link href="https://igreat.github.io/blog/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>Visualizing Neural Networks 👁️🧠</title>
+      <link>https://igreat.github.io/blog/manifold_hypothesis/</link>
+      <pubDate>Sat, 31 Dec 2022 20:11:43 +0400</pubDate>
+      
+      <guid>https://igreat.github.io/blog/manifold_hypothesis/</guid>
+      <description>Neural networks are long assumed to be a black box, and though that might still be true to an extent, it can be very helpful to try to understand what’s going on inside it. In this blog post, I’ll try to crack open this black box and present some very intuitive ways to interpret neural nets.
+Knowing very surface-level linear algebra and neural network basics will make this post flow much easier.</description>
+    </item>
+    
+  </channel>
+</rss>

@@ -86,15 +86,18 @@ March-April 2022
 All of these projects can be found on my github page for more meaningful descriptions.
 
 **Artificial Intelligence:**
+
 - A video stylization converter using fast style transfer in PyTorch
 - A CLI for neural style transfer using PyTorch
 - Multi-featured linear regression using binary search (built from scratch)
 
 **Web Development:**
+
 - Sorting algorithms visualizer in JavaScript
 - Personal portfolio website
 
 **Game Development:**
+
 - A graphing calculator in pygame (with a lot of functionality)
 - A simple rolling ball game (which involved a lot of physics)
 
